@@ -58,16 +58,15 @@ public class EntityManager : MonoBehaviour
             sMesh.triangles = mesh.triangles;
 
             //Colors
-                SerializableVector3[] colors = new SerializableVector3[mesh.colors.Length];
-                for(int i=0; i< colors.Length;i++){
-                    SerializableVector3 c = new SerializableVector3();
-                    Color color = mesh.colors[i];
-                        c.x = color.r;
-                        c.y = color.g;
-                        c.z = color.b;
-                    colors[i] = c;
-                }
-            sMesh.colors = colors;
+            List<SerializableVector3> liste = new List<SerializableVector3>();
+            foreach(var c in mesh.colors){
+                SerializableVector3 vec = new SerializableVector3();
+                vec.x = c.r/1f;
+                vec.y = c.g/1f;
+                vec.z = c.b/1f;
+                liste.Add(vec);
+            }
+            sMesh.colors = liste.ToArray();
             return sMesh;
         }
     //End Mesh
@@ -170,6 +169,7 @@ public class EntityManager : MonoBehaviour
             mesh.vertices = DeserializeVectorArray(entity.mesh.vertices);
             mesh.colors = DeserializeVectorArrayToColor(entity.mesh.colors);
             mesh.triangles = entity.mesh.triangles;
+            mesh.RecalculateNormals();
 
 
         return obj;
