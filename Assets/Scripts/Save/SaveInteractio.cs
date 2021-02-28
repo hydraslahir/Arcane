@@ -13,32 +13,37 @@ namespace Save{
     {
         [SerializeField] bool saveInPersistentData = true;
         [SerializeField] string fullPath = "";
-        [SerializeField] string saveFile= "save001.txt";
+        [SerializeField] string loadFile= "save001.txt";
+        [SerializeField] string saveFile= "save002.txt";
 
 
         void Awake(){
-            fullPath = GetPath();
+            fullPath = GetPath("");
         }
 
         private void Update(){
             if(Input.GetKeyDown(KeyCode.S)){
-                this.GetComponent<SaveSystem>().Save(fullPath);
+                this.GetComponent<SaveSystem>().Save(GetPath(saveFile));
             }
 
             if(Input.GetKeyDown(KeyCode.L)){
-                LoadScene();
+                if(File.Exists(GetPath(loadFile))){
+                    LoadScene();
+                }else{
+                    Debug.Log("The loading file doesn't exist");
+                }
             }
         }
 
         public void LoadScene(){
             EntityManager.DeleteAllEntity();
-            this.GetComponent<SaveSystem>().Load(fullPath);
+            this.GetComponent<SaveSystem>().Load(GetPath(loadFile));
         }
 
-        public string GetPath(){
+        public string GetPath(string app){
             return saveInPersistentData ? 
-                Path.GetFullPath(Path.Combine(Application.persistentDataPath,saveFile)):
-                Path.GetFullPath(Path.Combine(Application.dataPath,"Resources","saves",saveFile));
+                Path.GetFullPath(Path.Combine(Application.persistentDataPath,app)):
+                Path.GetFullPath(Path.Combine(Application.dataPath,"Resources","saves",app));
         }
     }
 }
