@@ -13,8 +13,8 @@ namespace Save{
     {
         [SerializeField] bool saveInPersistentData = true;
         [SerializeField] string fullPath = "";
-        [SerializeField] string loadFile= "save001.txt";
-        [SerializeField] string saveFile= "save002.txt";
+        [SerializeField] string loadFile= "save003.txt";
+        [SerializeField] string saveFile= "save003.txt";
 
 
         void Awake(){
