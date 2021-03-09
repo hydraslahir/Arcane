@@ -82,8 +82,14 @@ public class EntityManager : MonoBehaviour
     }
 
     public static void DeleteAllEntity(){
-        foreach(GameObject s in GameObject.FindGameObjectsWithTag("GO")){
-            Destroy(s);
+        if(Application.isPlaying){
+            foreach(GameObject s in GameObject.FindGameObjectsWithTag("GO")){
+                Destroy(s);
+            }
+        }else{
+            foreach(GameObject s in GameObject.FindGameObjectsWithTag("GO")){
+                DestroyImmediate(s);
+            }
         }
     }
 
@@ -165,6 +171,7 @@ public class EntityManager : MonoBehaviour
             obj.tag = "GO";
 
         //Mesh
+        //TODO //Validator //SHARED_MESH
             Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
             mesh.vertices = DeserializeVectorArray(entity.mesh.vertices);
             mesh.colors = DeserializeVectorArrayToColor(entity.mesh.colors);

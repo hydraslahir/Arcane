@@ -44,7 +44,7 @@ public class Spawner : MonoBehaviour
 
     public void SpawnEntity(){
         Possibility p = possibilities[possibilityIndex];
-        GameObject go = EntityManager.GenerateEntity(p.name,p.go, defaultMaterial);
+        GameObject go = EntityManager.GenerateEntity(p.name, p.go, defaultMaterial);
         go.transform.position = where;
     }
 }

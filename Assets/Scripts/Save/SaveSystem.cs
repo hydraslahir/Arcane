@@ -7,7 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 namespace Save{
     public class SaveSystem : MonoBehaviour
     {
-        public void Save(string path){
+        public static void Save(string path){
             Debug.Log("Saving file");
             using (FileStream fs = File.Open(path, FileMode.Create)){
                 BinaryFormatter formatter = new BinaryFormatter();
@@ -15,7 +15,7 @@ namespace Save{
             }
         }
 
-        public void Load(string path){
+        public static void Load(string path){
             Debug.Log("Loading file");
             using (FileStream fs = File.Open(path, FileMode.Open)){
                BinaryFormatter formatter = new BinaryFormatter();

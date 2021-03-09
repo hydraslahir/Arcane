@@ -8,7 +8,6 @@ using System.IO;
 
 
 namespace Save{
-[ExecuteAlways]
     public class SaveInteractio : MonoBehaviour
     {
         [SerializeField] bool saveInPersistentData = true;
@@ -18,17 +17,17 @@ namespace Save{
 
 
         void Awake(){
-            fullPath = GetPath("");
+            fullPath = GetPath("",saveInPersistentData);
         }
 
         private void Update(){
             if(Input.GetKeyDown(KeyCode.S)){
-                this.GetComponent<SaveSystem>().Save(GetPath(saveFile));
+                SaveSystem.Save(GetPath(saveFile,saveInPersistentData));
             }
 
             if(Input.GetKeyDown(KeyCode.L)){
-                if(File.Exists(GetPath(loadFile))){
-                    LoadScene();
+                if(File.Exists(GetPath(loadFile,saveInPersistentData))){
+                    LoadScene();        
                 }else{
                     Debug.Log("The loading file doesn't exist");
                 }
@@ -36,14 +35,28 @@ namespace Save{
         }
 
         public void LoadScene(){
-            EntityManager.DeleteAllEntity();
-            this.GetComponent<SaveSystem>().Load(GetPath(loadFile));
+            LoadScene(GetPath(loadFile,saveInPersistentData));
+        }
+        public static void LoadScene(string wholePath){
+            if(!File.Exists(wholePath)){ 
+                Debug.Log("The given path doesn't exist");
+            }else{
+                EntityManager.DeleteAllEntity();
+                SaveSystem.Load(wholePath);
+            }
         }
 
-        public string GetPath(string app){
-            return saveInPersistentData ? 
+/**
+    Methode qui retourne le chemin persistant ou local du nom de fichier donné.
+*/
+        public static string GetPath(string app, bool persistent){
+            string path = persistent ? 
                 Path.GetFullPath(Path.Combine(Application.persistentDataPath,app)):
                 Path.GetFullPath(Path.Combine(Application.dataPath,"Resources","saves",app));
+            if(File.Exists(path)) return path;
+
+            return "";
+
         }
     }
 }

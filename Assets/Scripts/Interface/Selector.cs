@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 namespace SelectorNS{
     public class Selector : MonoBehaviour
     {
         [SerializeField] bool clipToGround = true;
         [SerializeField] Color_Picker colorPicker;
-        string buttonType= "OBJECT";
+        [SerializeField] string buttonType= "OBJECT";
 
         private GameObject selectedObject;
         public GameObject GetSelectedObject(){ 
@@ -35,7 +37,6 @@ namespace SelectorNS{
                 break;
             }      
         }
-
 /**TODO #1
 * La position de l'objet recule continuellement. //UPDATE; ça dépend de la position de la sourie et de l'orientation de la caméra
 * L'objet sélectionné change lorsqu'un autre passe devant
