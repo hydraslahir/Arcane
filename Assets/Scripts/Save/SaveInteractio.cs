@@ -22,7 +22,7 @@ namespace Save{
 
         private void Update(){
             if(Input.GetKeyDown(KeyCode.S)){
-                SaveSystem.Save(GetPath(saveFile,saveInPersistentData));
+                SaveScene(GetPath(saveFile,saveInPersistentData));
             }
 
             if(Input.GetKeyDown(KeyCode.L)){
@@ -33,13 +33,17 @@ namespace Save{
                 }
             }
         }
+        public static void SaveScene(string path){
+            SaveSystem.Save(path);
+        }
 
         public void LoadScene(){
-            LoadScene(GetPath(loadFile,saveInPersistentData));
+                LoadScene(GetPath(loadFile,saveInPersistentData));
         }
+        
         public static void LoadScene(string wholePath){
             if(!File.Exists(wholePath)){ 
-                Debug.Log("The given path doesn't exist");
+                Debug.Log("The given path(" + wholePath + ") doesn't exist");
             }else{
                 EntityManager.DeleteAllEntity();
                 SaveSystem.Load(wholePath);
@@ -53,9 +57,7 @@ namespace Save{
             string path = persistent ? 
                 Path.GetFullPath(Path.Combine(Application.persistentDataPath,app)):
                 Path.GetFullPath(Path.Combine(Application.dataPath,"Resources","saves",app));
-            if(File.Exists(path)) return path;
-
-            return "";
+            return path;
 
         }
     }

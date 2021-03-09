@@ -127,7 +127,7 @@ public class EntityManager : MonoBehaviour
             entity.rz = rotation.z;
             entity.rw = rotation.w;
 
-            entity.mesh = SerializeMesh(obj.GetComponent<MeshFilter>().mesh);
+            entity.mesh = SerializeMesh(obj.GetComponent<MeshFilter>().sharedMesh);
 
         return entity;
     }
@@ -172,10 +172,12 @@ public class EntityManager : MonoBehaviour
 
         //Mesh
         //TODO //Validator //SHARED_MESH
-            Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
+            Mesh mesh = new Mesh();
             mesh.vertices = DeserializeVectorArray(entity.mesh.vertices);
             mesh.colors = DeserializeVectorArrayToColor(entity.mesh.colors);
             mesh.triangles = entity.mesh.triangles;
+
+            obj.GetComponent<MeshFilter>().sharedMesh = mesh;
             mesh.RecalculateNormals();
 
 
