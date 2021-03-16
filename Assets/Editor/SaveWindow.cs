@@ -69,7 +69,7 @@ void generateSave(){
                         "Are you sure you want to continue ?"
                         , "Save me", "Not sure"))
                     {
-                        SaveInteractio.SaveScene(SaveInteractio.GetPath(saveFile,saveFileInPersistent));
+                        SaveInteraction.SaveScene(SaveInteraction.GetPath(saveFile,saveFileInPersistent));
                     }
                 
             }
@@ -99,10 +99,10 @@ void generateLoad(){
                     +       "Loading a file will destroy every unsaved object and replace them with the gamefile\n"
                     +       "Are you sure you want to load " + loadFile+ " ?", "Yes, I'm an expert", "Not sure"))
                     {
-                        SaveInteractio.LoadScene(SaveInteractio.GetPath(loadFile,loadFileInPersistent));
+                        SaveInteraction.LoadScene(SaveInteraction.GetPath(loadFile,loadFileInPersistent));
                     }
                 }else{
-                    SaveInteractio.LoadScene(SaveInteractio.GetPath(loadFile,loadFileInPersistent));
+                    SaveInteraction.LoadScene(SaveInteraction.GetPath(loadFile,loadFileInPersistent));
                 }
             }
             GUI.enabled = true;
@@ -145,7 +145,7 @@ void generateFileInput(ref string fileVariable, ref bool isPersistent, bool vali
         GUILayout.EndHorizontal();
 }
     bool InvalidFile(string f){
-        if(File.Exists(SaveInteractio.GetPath(f,loadFileInPersistent))){
+        if(File.Exists(SaveInteraction.GetPath(f,loadFileInPersistent))){
             return false;
         }
         return true;

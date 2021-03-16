@@ -8,7 +8,7 @@ using System.IO;
 
 
 namespace Save{
-    public class SaveInteractio : MonoBehaviour
+    public class SaveInteraction : MonoBehaviour
     {
         [SerializeField] bool saveInPersistentData = true;
         [SerializeField] string fullPath = "";
@@ -38,7 +38,7 @@ namespace Save{
         }
 
         public void LoadScene(){
-                LoadScene(GetPath(loadFile,saveInPersistentData));
+            LoadScene(GetPath(loadFile,saveInPersistentData));
         }
         
         public static void LoadScene(string wholePath){
@@ -50,15 +50,15 @@ namespace Save{
             }
         }
 
-/**
-    Methode qui retourne le chemin persistant ou local du nom de fichier donné.
+        /**
+            Methode qui retourne le chemin persistant ou local du nom de fichier donné.
+            Elle ne vérifie pas si le fichier existe, elle donne un chemin vers une destination.
 */
         public static string GetPath(string app, bool persistent){
             string path = persistent ? 
                 Path.GetFullPath(Path.Combine(Application.persistentDataPath,app)):
                 Path.GetFullPath(Path.Combine(Application.dataPath,"Resources","saves",app));
             return path;
-
         }
     }
 }
