@@ -1,2 +1,4 @@
-
 FindObjectsOfType au lieu de Tags
+
+Save des objects avec le nameTag 'GO' qui n'ont pas tous les éléments
+Fixer le mouvement lorsqu'on load la scene

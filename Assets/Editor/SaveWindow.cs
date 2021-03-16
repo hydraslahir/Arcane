@@ -101,6 +101,8 @@ void generateLoad(){
                     {
                         SaveInteractio.LoadScene(SaveInteractio.GetPath(loadFile,loadFileInPersistent));
                     }
+                }else{
+                    SaveInteractio.LoadScene(SaveInteractio.GetPath(loadFile,loadFileInPersistent));
                 }
             }
             GUI.enabled = true;
